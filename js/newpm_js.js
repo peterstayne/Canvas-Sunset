@@ -72,8 +72,7 @@ function draw() {
     canvas.setAttribute('height', height);
 
     ctx.restore();
-    aC++;
-    if (aC > fakeLimit) aC = 1; //sanity check
+    aC=(aC > fakeLimit)?aC = 1:aC++; //sanity check
     // draw sky
     ctx.fillStyle = bggradsky;
     ctx.fillRect(0, 0, canvas.width, horizon);

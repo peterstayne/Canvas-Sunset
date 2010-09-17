@@ -86,26 +86,26 @@
        ctx.fillRect(0,0,canvas.width,horizon);
        
        // would love to use createImageData instead of getImageData, but Opera won't let me.
-       var getsky = ctx.getImageData(0,0,canvas.width,horizon);
-       var gsD=getsky.data;     // Everything above the sky, used as source data to generate the reflection
-       var gsW=getsky.width;    // what's the width? sky is 2x big on purpose, so that edges don't wrap in reflection
-       var gsH=getsky.height;   // simple height.
-       var rS=getsky.width<<2;  // 4 values per pixel in canvas, <<2 is a far faster version of *4.
-       var startRow=gsH>>1;     // since the water portion is half the height of the sky, we can start half through getsky. >>1 = faster /2
-       var rCA=50;              // rCA is an accumulator that is used to have waves be closer together near the horizon
-       var rCAInc=0.95;         // rCA is multiplied by this each row in the main loop
-       var aCDiv4H=aC<<3;       // aC gets incremented each frame of animation. this is the value that moves the waves toward the viewer
-       var aCDiv4V=aC<<3;       // this value moves the waves left each frame.
-       var cC=gsW>>1;           // Stored alias for the middle of the image data.
+       var getsky = ctx.getImageData(0,0,canvas.width,horizon),
+           gsD=getsky.data,     // Everything above the sky, used as source data to generate the reflection
+           gsW=getsky.width,    // what's the width? sky is 2x big on purpose, so that edges don't wrap in reflection
+           gsH=getsky.height,   // simple height.
+           rS=getsky.width<<2,  // 4 values per pixel in canvas, <<2 is a far faster version of *4.
+           startRow=gsH>>1,     // since the water portion is half the height of the sky, we can start half through getsky. >>1 = faster /2
+           rCA=50,              // rCA is an accumulator that is used to have waves be closer together near the horizon
+           rCAInc=0.95,         // rCA is multiplied by this each row in the main loop
+           aCDiv4H=aC<<3,       // aC gets incremented each frame of animation. this is the value that moves the waves toward the viewer
+           aCDiv4V=aC<<3,       // this value moves the waves left each frame.
+           cC=gsW>>1;           // Stored alias for the middle of the image data.
        for (var i=gsH;i>=startRow;i--) {
-         var iH=gsH-i-2;                                    // since we iterate backwards, this alias helps with the math
          rCA=rCA*rCAInc;                                    // see the rCA comments above this loop
          cosVal=(i*rCA)+aCDiv4H;                            // The actual value that gets Cosine'd for the waves horizontally.
-         var wH=iH<<2;                                      // Wave height. explained later.
-         var cosRow=(fC[~~(cosVal%fakeLimit)]*wH)>>2;       // (this is + or -) instead of pulling row 'i'. Add cosRow to 'i' and that's your row from sky.
-         var rowCosMath=(i+cosRow)*rS;                      // adding to 'i' and multiply by the rowsize to get starting point for the inner loop.
-         var toDot=iH*rS+(lRC<<2);                                // pre-calc'ing the leftmost .data position of this row in the destination .data
-         var sinPreCalc=rCA-(rCA>>4);                       // rCA perspective math doesn't change inside the inner loop, so it's extracted here and aliased.
+         var iH=gsH-i-2,                                    // since we iterate backwards, this alias helps with the math
+             wH=iH<<2,                                      // Wave height. explained later.
+             cosRow=(fC[~~(cosVal%fakeLimit)]*wH)>>2,       // (this is + or -) instead of pulling row 'i'. Add cosRow to 'i' and that's your row from sky.
+             rowCosMath=(i+cosRow)*rS,                      // adding to 'i' and multiply by the rowsize to get starting point for the inner loop.
+             toDot=iH*rS+(lRC<<2),                                // pre-calc'ing the leftmost .data position of this row in the destination .data
+             sinPreCalc=rCA-(rCA>>4);                       // rCA perspective math doesn't change inside the inner loop, so it's extracted here and aliased.
          for (var j=lRC; j<rRC; j++) {
              sinVal = ((j-cC)*sinPreCalc+aCDiv4V);          // The value to do Sine against 
              alti=(fS[~~(sinVal%fakeLimit)]*wH)>>2;         // Sine sinVal, multiply it by the wave height, then divide by 4 (>>2)

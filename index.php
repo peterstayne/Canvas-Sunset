@@ -1,6 +1,4 @@
-<?php
-    require_once("outputheaders.php");
-?><!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
  <link href="css/newpm.css" media="screen" rel="stylesheet" type="text/css" /> 

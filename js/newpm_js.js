@@ -2,9 +2,6 @@
    var fC,fS,fromDot,toDot,mouseX=0,mouseY=0;
    var Pi2 = Math.PI*2;
    var fakeLimit=Pi2*100>>0;
-   var benchmark=[],bi;
-    
-
    fS = [];
    for(var i= -fakeLimit;i<fakeLimit;i++){
         fS[i] = Math.sin(i*0.01);
@@ -55,7 +52,25 @@
        bggradsun.addColorStop(1, "rgba(255,100,10,0)");
        rCA = 0.0003*(height/3);
        makewater = ctx.getImageData(0,horizon,canvas.width,canvas.height - horizon);
+       ctx.save();
+   }
+   $(window).resize(init);
+   
+   var img=null,imgx,imgy,imgready=false;
+   function draw(){
+       if(!canvas) return false;
+       if(canvas&&aC===0) init();
 
+       var rCA,cosVal,sinVal,alti;
+   
+       horizon = (height * 0.67)>>0;
+       canvas.setAttribute('width', width * 2);
+       canvas.setAttribute('height', height);
+   
+       ctx.restore();
+       aC++;
+       if(aC>fakeLimit)aC=1; //sanity check
+   
        // draw sky
        ctx.fillStyle = bggradsky;
        ctx.fillRect(0,0,canvas.width,horizon);
@@ -66,33 +81,13 @@
        if(imgready){
            ctx.drawImage(img,imgx,imgy);    
        }
-       ctx.save();   
-   }
-   $(window).resize(init);
-   
-   var img=null,imgx,imgy,imgready=false;
-
-   var draw=function(){
-       if(!canvas) return false;
-       if(aC===0) init();
-
-       var benchstart=(new Date).getTime();
-       var rCA,cosVal,sinVal,alti;
-   
-       horizon = (height * 0.67)>>0;
-       canvas.setAttribute('width', width<<1);
-       canvas.setAttribute('height', height);
-   
-       ctx.restore();
-       aC++;
-       if(aC>fakeLimit)aC=1; //sanity check
    
        ctx.fillStyle = bggradmouse;
        ctx.fillRect(0,0,canvas.width,horizon);
        
        // would love to use createImageData instead of getImageData, but Opera won't let me.
        var getsky = ctx.getImageData(0,0,canvas.width,horizon);
-//       var gsD=getsky.data;     // Everything above the sky, used as source data to generate the reflection
+       var gsD=getsky.data;     // Everything above the sky, used as source data to generate the reflection
        var gsW=getsky.width;    // what's the width? sky is 2x big on purpose, so that edges don't wrap in reflection
        var gsH=getsky.height;   // simple height.
        var rS=getsky.width<<2;  // 4 values per pixel in canvas, <<2 is a far faster version of *4.
@@ -115,14 +110,12 @@
              sinVal = ((j-cC)*sinPreCalc+aCDiv4V);          // The value to do Sine against 
              alti=(fS[~~(sinVal%fakeLimit)]*wH)>>2;         // Sine sinVal, multiply it by the wave height, then divide by 4 (>>2)
              fromDot = rowCosMath + ((j+alti)<<2);          // Final math to determine where to pull the source dot values from
-             makewater.data[toDot++]=getsky.data[fromDot++];          // Do the actual value transfers here (red)
-             makewater.data[toDot++]=getsky.data[fromDot++];        // and here (green)
-             makewater.data[toDot++]=getsky.data[fromDot];        // and here (blue)
+             makewater.data[toDot++]=gsD[fromDot++];          // Do the actual value transfers here (red)
+             makewater.data[toDot++]=gsD[fromDot++];        // and here (green)
+             makewater.data[toDot++]=gsD[fromDot++];        // and here (blue)
              makewater.data[toDot++]=255;                   // opacity is always opaque, so just use literal 255.
          }
        }
        ctx.putImageData(makewater,0,horizon,0,0,makewater.width,makewater.height);          // put the final water where it needs to go
-       benchmark[1]["mstime"] = (new Date).getTime()-benchstart;
-       benchmark[1]["iterations"]+=1;
        ctx.save();                                                                          // push the scene on the stack.
    }

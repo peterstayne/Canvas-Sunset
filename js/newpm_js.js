@@ -1,5 +1,5 @@
 var canvas, ctx, width, height, bggradsky, bggradground, bggradmouse, horizon, aC = 0,
-    scale, makewater, lRC, rRC;
+    scale, makewater, lRC, rRC, stopWatchTime, stopWatchFrames;
 var fC, fS, fromDot, toDot, mouseX = 0,
     mouseY = 0;
 var Pi2 = Math.PI * 2;
@@ -57,7 +57,6 @@ function init() {
     bggradsun.addColorStop(1, "rgba(255,100,10,0)");
     rCA = 0.0003 * (height / 3);
     makewater = ctx.getImageData(0, horizon, canvas.width, canvas.height - horizon);
-    ctx.save();
 }
 $(window).resize(init);
 
@@ -66,7 +65,7 @@ var img = null,
 
 function draw() {
     if (!canvas) return false;
-    if (canvas && aC === 0) init();
+    if (aC === 0) init();
 
     var rCA, cosVal, sinVal, alti;
 
@@ -74,9 +73,8 @@ function draw() {
     canvas.setAttribute('width', width * 2);
     canvas.setAttribute('height', height);
 
-    ctx.restore();
-    aC++;
-    if (aC > fakeLimit) aC = 1; //sanity check
+    (aC < fakeLimit) ? aC++ : aC = 1; //sanity check
+
     // draw sky
     ctx.fillStyle = bggradsky;
     ctx.fillRect(0, 0, canvas.width, horizon);
@@ -128,7 +126,7 @@ function draw() {
 
         cosVal = (i * rCA) + aCDiv4H; // The actual value that gets Cosine'd for the waves horizontally.
 
-        var iH = gsH - i - 2,
+        var iH = gsH - i - 1,
             // since we iterate backwards, this alias helps with the math
 
             wH = iH << 2,
@@ -163,5 +161,4 @@ function draw() {
         }
     }
     ctx.putImageData(makewater, 0, horizon, 0, 0, makewater.width, makewater.height); // put the final water where it needs to go
-    ctx.save(); // push the scene on the stack.
 }

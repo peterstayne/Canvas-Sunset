@@ -30,7 +30,6 @@ $(document).ready(function () {
             bggradmouse.addColorStop(0, "rgba(140,120,250,1)");
             bggradmouse.addColorStop(0.9, "rgba(75,60,120,1)");
             bggradmouse.addColorStop(1, "rgba(75,60,120,1)");
-//            bggradmouse.addColorStop(1, "transparent");
         }
     });
     setInterval("draw()", 10);
@@ -84,11 +83,13 @@ function draw() {
     ctx.fillRect(0, 0, canvas.width, horizon);
     ctx.fillStyle = bggradsun;
     ctx.fillRect(0, 0, canvas.width, horizon);
-    ctx.fillStyle = bggradmouse;
-    ctx.beginPath();
-    ctx.arc(gradX, gradY, testBallRadius, 0, Math.PI*2, true);
-    ctx.closePath();
-    ctx.fill();
+    if(bggradmouse) {
+       ctx.fillStyle = bggradmouse;
+       ctx.beginPath();
+       ctx.arc(gradX, gradY, testBallRadius, 0, Math.PI*2, true);
+       ctx.closePath();
+       ctx.fill();
+    }
     
     // would love to use createImageData instead of getImageData, but Opera won't let me.
     var getsky = ctx.getImageData(0, 0, canvas.width, horizon),

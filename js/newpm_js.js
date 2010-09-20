@@ -27,7 +27,7 @@ $(document).ready(function () {
             bggradmouse = ctx.createRadialGradient(gradX, mouseY / scale, 0, gradX, mouseY / scale, 30);
             bggradmouse.addColorStop(0, "rgba(140,120,250,1)");
             bggradmouse.addColorStop(0.9, "rgba(75,60,120,1)");
-            bggradmouse.addColorStop(1, "rgba(0,0,0,-1)");
+            bggradmouse.addColorStop(1, "rgba(0,0,0,0)");
         }
     });
     setInterval("draw()", 10);
@@ -36,8 +36,8 @@ $(document).ready(function () {
 function init() {
     scale = 3;
     aC = 0;
-    width = window.innerWidth / scale;
-    height = window.innerHeight / scale;
+    width = ~~(window.innerWidth / scale);
+    height = ~~(window.innerHeight / scale);
     lRC = width >> 1;
     rRC = lRC + width;
     horizon = (height * 0.67) >> 0;
@@ -70,7 +70,7 @@ function draw() {
     var rCA, cosVal, sinVal, alti;
 
     horizon = (height * 0.67) >> 0;
-    canvas.setAttribute('width', width * 2);
+    canvas.setAttribute('width', width << 1);
     canvas.setAttribute('height', height);
 
     (aC < fakeLimit) ? aC++ : aC = 1; //sanity check
@@ -78,14 +78,8 @@ function draw() {
     // draw sky
     ctx.fillStyle = bggradsky;
     ctx.fillRect(0, 0, canvas.width, horizon);
-
-    // draw sun
     ctx.fillStyle = bggradsun;
     ctx.fillRect(0, 0, canvas.width, horizon);
-    if (imgready) {
-        ctx.drawImage(img, imgx, imgy);
-    }
-
     ctx.fillStyle = bggradmouse;
     ctx.fillRect(0, 0, canvas.width, horizon);
 
@@ -97,7 +91,7 @@ function draw() {
         gsW = getsky.width,
         // what's the width? sky is 2x big on purpose, so that edges don't wrap in reflection
 
-        gsH = getsky.height,
+        gsH = getsky.height-1,
         // simple height.
 
         rS = getsky.width << 2,
@@ -120,6 +114,8 @@ function draw() {
 
         cC = gsW >> 1; // Stored alias for the middle of the image data.
 
+    toDot = lRC<<2;
+
     for (var i = gsH; i >= startRow; i--) {
 
         rCA = rCA * rCAInc; // see the rCA comments above this loop
@@ -138,9 +134,6 @@ function draw() {
             rowCosMath = (i + cosRow) * rS,
             // adding to 'i' and multiply by the rowsize to get starting point for the inner loop.
 
-            toDot = iH * rS + (lRC << 2),
-            // pre-calc'ing the leftmost .data position of this row in the destination .data
-
             sinPreCalc = rCA - (rCA >> 4); // rCA perspective math doesn't change inside the inner loop, so it's extracted here and aliased.
 
         for (var j = lRC; j < rRC; j++) {
@@ -150,15 +143,13 @@ function draw() {
             alti = (fS[~~ (sinVal % fakeLimit)] * wH) >> 2; // Sine sinVal, multiply it by the wave height, then divide by 4 (>>2)
 
             fromDot = rowCosMath + ((j + alti) << 2); // Final math to determine where to pull the source dot values from
-
+//            if(gsD[fromDot] < 100 ) console.log(fromDot);
             makewater.data[toDot++] = gsD[fromDot++]; // Do the actual value transfers here (red)
-
             makewater.data[toDot++] = gsD[fromDot++]; // and here (green)
-
             makewater.data[toDot++] = gsD[fromDot++]; // and here (blue)
-
             makewater.data[toDot++] = 255; // opacity is always opaque, so just use literal 255.
         }
-    }
+        toDot += width << 2;
+     }
     ctx.putImageData(makewater, 0, horizon, 0, 0, makewater.width, makewater.height); // put the final water where it needs to go
 }

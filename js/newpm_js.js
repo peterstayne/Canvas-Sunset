@@ -24,7 +24,7 @@ $(document).ready(function () {
         mouseY = e.pageY;
         if (canvas) {
             var gradX = (mouseX / scale) + (canvas.width >> 2);
-            bggradmouse = ctx.createRadialGradient(gradX, mouseY / scale, 0, gradX, mouseY / scale, canvas.width >> 6);
+            bggradmouse = ctx.createRadialGradient(gradX, mouseY / scale, 0, gradX, mouseY / scale, canvas.width >> 5);
             bggradmouse.addColorStop(0, "rgba(140,120,250,1)");
             bggradmouse.addColorStop(0.9, "rgba(75,60,120,1)");
             bggradmouse.addColorStop(1, "transparent");
@@ -135,9 +135,9 @@ function draw() {
 
         for (var j = lRC; j < rRC; j++) {
 
-            sinVal = ((j - cC) * sinPreCalc + aCDiv4V); // The value to do Sine against 
+//            sinVal = ((j - cC) * sinPreCalc + aCDiv4V); // The value to do Sine against 
 
-            alti = (fS[~~ (sinVal % fakeLimit)] * wH) >> 2; // Sine sinVal, multiply it by the wave height, then divide by 4 (>>2)
+            alti = (fS[~~ (((j - cC) * sinPreCalc + aCDiv4V) % fakeLimit)] * wH) >> 2; // Sine sinVal, multiply it by the wave height, then divide by 4 (>>2)
 
             fromDot = rowCosMath + ((j + alti) << 2); // Final math to determine where to pull the source dot values from
 //            if(gsD[fromDot] < 100 ) console.log(fromDot);

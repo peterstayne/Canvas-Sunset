@@ -24,17 +24,17 @@ $(document).ready(function () {
         mouseY = e.pageY;
         if (canvas) {
             var gradX = (mouseX / scale) + (canvas.width >> 2);
-            bggradmouse = ctx.createRadialGradient(gradX, mouseY / scale, 0, gradX, mouseY / scale, 30);
+            bggradmouse = ctx.createRadialGradient(gradX, mouseY / scale, 0, gradX, mouseY / scale, canvas.width >> 6);
             bggradmouse.addColorStop(0, "rgba(140,120,250,1)");
             bggradmouse.addColorStop(0.9, "rgba(75,60,120,1)");
-            bggradmouse.addColorStop(1, "rgba(0,0,0,0)");
+            bggradmouse.addColorStop(1, "transparent");
         }
     });
     setInterval("draw()", 10);
 });
 
 function init() {
-    scale = 3;
+    scale = 2;
     aC = 0;
     width = ~~(window.innerWidth / scale);
     height = ~~(window.innerHeight / scale);
@@ -116,7 +116,7 @@ function draw() {
 
     toDot = lRC<<2;
 
-    for (var i = gsH; i >= startRow; i--) {
+    for (var i = gsH; i > startRow; i--) {
 
         rCA = rCA * rCAInc; // see the rCA comments above this loop
 
@@ -128,11 +128,8 @@ function draw() {
             wH = iH << 2,
             // Wave height. explained later.
 
-            cosRow = (fC[~~ (cosVal % fakeLimit)] * wH) >> 2,
+            rowCosMath = (i + ((fC[~~ (cosVal % fakeLimit)] * wH) >> 2)) * rS,
             // (this is + or -) instead of pulling row 'i'. Add cosRow to 'i' and that's your row from sky.
-
-            rowCosMath = (i + cosRow) * rS,
-            // adding to 'i' and multiply by the rowsize to get starting point for the inner loop.
 
             sinPreCalc = rCA - (rCA >> 4); // rCA perspective math doesn't change inside the inner loop, so it's extracted here and aliased.
 

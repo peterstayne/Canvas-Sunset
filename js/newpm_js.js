@@ -34,7 +34,7 @@ $(document).ready(function () {
 });
 
 function init() {
-    scale = 2;
+    scale = 3;
     aC = 0;
     width = ~~(window.innerWidth / scale);
     height = ~~(window.innerHeight / scale);

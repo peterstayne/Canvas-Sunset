@@ -1,7 +1,7 @@
 var canvas, ctx, width, height, bggradsky, bggradground, bggradmouse, horizon, aC = 0,
-    scale, makewater, lRC, rRC, stopWatchTime, stopWatchFrames;
+    scale, makewater, lRC, rRC, stopWatchTime, stopWatchFrames, testBallRadius;
 var fC, fS, fromDot, toDot, mouseX = 0,
-    mouseY = 0;
+    mouseY = 0, gradX, gradY;
 var Pi2 = Math.PI * 2;
 var fakeLimit = Pi2 * 100 >> 0;
 
@@ -23,11 +23,13 @@ $(document).ready(function () {
         mouseX = e.pageX;
         mouseY = e.pageY;
         if (canvas) {
-            var gradX = (mouseX / scale) + (canvas.width >> 2);
-            bggradmouse = ctx.createRadialGradient(gradX, mouseY / scale, 0, gradX, mouseY / scale, canvas.width >> 5);
+            gradX = (mouseX / scale) + (canvas.width >> 2);
+            gradY = mouseY / scale;
+            bggradmouse = ctx.createRadialGradient(gradX, mouseY / scale, 0, gradX, mouseY / scale, testBallRadius);
             bggradmouse.addColorStop(0, "rgba(140,120,250,1)");
             bggradmouse.addColorStop(0.9, "rgba(75,60,120,1)");
-            bggradmouse.addColorStop(1, "transparent");
+            bggradmouse.addColorStop(1, "rgba(75,60,120,1)");
+//            bggradmouse.addColorStop(1, "transparent");
         }
     });
     setInterval("draw()", 10);
@@ -43,6 +45,7 @@ function init() {
     horizon = (height * 0.67) >> 0;
     canvas.setAttribute('width', width * 2);
     canvas.setAttribute('height', height);
+    testBallRadius = canvas.width >> 5;
     $("#bgcanvas").css("left", "-" + (window.innerWidth >> 1) + "px");
     $("#bgcanvas").css("width", (window.innerWidth << 1) + "px");
     bggradsky = ctx.createLinearGradient((canvas.width / 2 >> 0) + 1, 0, (canvas.width / 2 >> 0) + 1, horizon);
@@ -81,8 +84,11 @@ function draw() {
     ctx.fillStyle = bggradsun;
     ctx.fillRect(0, 0, canvas.width, horizon);
     ctx.fillStyle = bggradmouse;
-    ctx.fillRect(0, 0, canvas.width, horizon);
-
+    ctx.beginPath();
+    ctx.arc(gradX, gradY, testBallRadius, 0, Math.PI*2, true);
+    ctx.closePath();
+    ctx.fill();
+    
     // would love to use createImageData instead of getImageData, but Opera won't let me.
     var getsky = ctx.getImageData(0, 0, canvas.width, horizon),
         gsD = getsky.data,
@@ -135,12 +141,9 @@ function draw() {
 
         for (var j = lRC; j < rRC; j++) {
 
-//            sinVal = ((j - cC) * sinPreCalc + aCDiv4V); // The value to do Sine against 
-
             alti = (fS[~~ (((j - cC) * sinPreCalc + aCDiv4V) % fakeLimit)] * wH) >> 2; // Sine sinVal, multiply it by the wave height, then divide by 4 (>>2)
 
             fromDot = rowCosMath + ((j + alti) << 2); // Final math to determine where to pull the source dot values from
-//            if(gsD[fromDot] < 100 ) console.log(fromDot);
             makewater.data[toDot++] = gsD[fromDot++]; // Do the actual value transfers here (red)
             makewater.data[toDot++] = gsD[fromDot++]; // and here (green)
             makewater.data[toDot++] = gsD[fromDot++]; // and here (blue)

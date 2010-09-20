@@ -1,5 +1,5 @@
 var canvas, ctx, width, height, bggradsky, bggradground, bggradmouse, horizon, aC = 0,
-    scale, makewater, lRC, rRC, stopWatchTime, stopWatchFrames, testBallRadius;
+    scale, makewater, lRC, rRC, stopWatchTime, stopWatchFrames, sunRadius, testBallRadius;
 var fC, fS, fromDot, toDot, mouseX = 0,
     mouseY = 0, gradX, gradY;
 var Pi2 = Math.PI * 2;
@@ -53,7 +53,8 @@ function init() {
     bggradsky.addColorStop(0.75, '#66223a');
     bggradsky.addColorStop(0.90, '#883333');
     bggradsky.addColorStop(1, '#ee4422');
-    bggradsun = ctx.createRadialGradient(canvas.width * 0.4, height * 0.72, 0, canvas.width * 0.4, height * 0.72, canvas.width / 3);
+    sunRadius = canvas.width / 4;
+    bggradsun = ctx.createRadialGradient(canvas.width * 0.4, height * 0.72, 0, canvas.width * 0.4, height * 0.72, sunRadius);
     bggradsun.addColorStop(0, "rgba(255,230,40,1)");
     bggradsun.addColorStop(0.12, "rgba(255,200,40,1)");
     bggradsun.addColorStop(0.3, "rgba(255,160,20,0.3)");
@@ -82,7 +83,10 @@ function draw() {
     ctx.fillStyle = bggradsky;
     ctx.fillRect(0, 0, canvas.width, horizon);
     ctx.fillStyle = bggradsun;
-    ctx.fillRect(0, 0, canvas.width, horizon);
+    ctx.beginPath();
+    ctx.arc(canvas.width * 0.4, height * 0.72, sunRadius, 0, Math.PI*2, true);
+    ctx.closePath();
+    ctx.fill();
     if(bggradmouse) {
        ctx.fillStyle = bggradmouse;
        ctx.beginPath();

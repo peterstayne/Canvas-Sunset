@@ -25,7 +25,8 @@ $(document).ready(function () {
         if (canvas) {
             gradX = (mouseX / scale) + (canvas.width >> 2);
             gradY = mouseY / scale;
-            bggradmouse = ctx.createRadialGradient(gradX, mouseY / scale, 0, gradX, mouseY / scale, testBallRadius);
+            testBallRadius = canvas.width >> 5;
+            bggradmouse = ctx.createRadialGradient(gradX, gradY, 0, gradX, mouseY / scale, testBallRadius);
             bggradmouse.addColorStop(0, "rgba(140,120,250,1)");
             bggradmouse.addColorStop(0.9, "rgba(75,60,120,1)");
             bggradmouse.addColorStop(1, "rgba(75,60,120,1)");

@@ -14,9 +14,8 @@
 <p>Looking to speed up the wave reflection engine, and then will add clouds, birds, and landscape.</p>
 <p>Move your mouse around to fly my blue testing ball.</p>
 <p>By far the best browser to view this in is Opera 10.60+. Very fast FPS and the gradients are silky smooth.</p>
-<p>Webkit Nightlies or Safari are decent at speed and appearance.</p>
-<p>Chrome/Chromium nightlies look the same as Webkit Nightlies/Safari, but have lower FPS.</p>
-<p>Firefox, even 4b6, or Minefield Nightlies are super ugly and very low FPS.</p>
+<p>In order from fastest to slowest: Webkit Nightlies/Safari 5, Chromium/Chrome, Firefox.</p>
+<p>Haven't been able to test hardware acceleration or IE9 on my Mac yet. :(</p>
 <p>e-mail: pmilkman at gmail dot com</p>
 <p><a href="http://twitter.com/pmilkman">@pmilkman</a></p>
 <p><a href="http://github.com/peterstayne/Canvas-Sunset">Github project</a></p>

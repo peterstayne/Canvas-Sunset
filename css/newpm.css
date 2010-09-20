@@ -33,6 +33,8 @@ a, a:visited, a:hover {
         top: 0px;
 }
 #bgcanvas {
+    margin: 0px;
+    padding: 0px;
     height: 100%;
     overflow: hidden;
     position: absolute;
@@ -42,49 +44,4 @@ a, a:visited, a:hover {
     float: right;
     width: 100%;
     vertical-align: middle;
-}
-#rightcolumn {
-    width: 350px;
-    float: right;
-    height: 99%;
-    overflow-y: auto;
-    overflow-x: hidden;
-}
-#bottomscroller {
-    width: 100%;
-    height: 20%;
-}
-#bottomscroller-content {
-    overflow-x: hidden;
-    overflow-y: hidden;
-    height: 200px;
-    max-height: 200px;
-}
-#bottomscroller-overflow-box {
-    white-space: nowrap;
-    width: 9000px;
-}
-.pmitem.box {
-    float: left;
-    white-space: normal;
-    padding: 0px;
-    height: 100%;
-}
-
-#showcase {
-    padding-right: 320px;
-    height: 78%;
-    overflow: hidden;
-    vertical-align: middle;
-    min-width: 300px;
-    min-height: 300px;
-}
-.middle {
-    display: table;
-    height: 100%;
-}
-.middle-inner {
-    display: table-cell;
-    vertical-align: middle;
-    padding: 10px;
 }

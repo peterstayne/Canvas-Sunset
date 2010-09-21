@@ -1,10 +1,20 @@
 var canvas, ctx, width, height, widthEvenOdd, bggradsky, bggradground, bggradmouse, horizon, aC = 0,
-    scale, makewater, lRC, rRC, stopWatchTime, stopWatchFrames, sunRadius, testBallRadius;
+    scale, makewater, lRC, rRC, stopWatchTime, stopWatchFrames, sunRadius, testBallRadius, intval;
 var fC, fS, fromDot, toDot, mouseX = 0,
     mouseY = 0, gradX, gradY;
 var Pi2 = Math.PI * 2;
 var fakeLimit = Pi2 * 100 >> 0;
 
+$("#toggleInfo").live("click", function() { $("#info").toggle(1000); });
+$("#toggleInterval").live("click", function() {
+   if($("#toggleInterval").text() === "Pause") {
+      window.clearInterval(intval);
+      $("#toggleInterval").text("Play");
+   } else {
+      intval = setInterval("draw()", 1); 
+      $("#toggleInterval").text("Pause");
+   }
+});
 
 // fS and fC are cosine and sine lookup table arrays since sin and cos are expensive math ops we 'f'ake it.
 fS = [];
@@ -32,7 +42,7 @@ $(document).ready(function () {
             bggradmouse.addColorStop(1, "rgba(75,60,120,0)");
         }
     });
-    setInterval("draw()", 10);
+    intval = setInterval("draw()", 1);
 });
 
 function init() {
@@ -64,7 +74,7 @@ function init() {
     makewater = ctx.getImageData(0, horizon, canvas.width, canvas.height - horizon);
 }
 $(window).resize(init);
-
+window.onorientationchange = function() { init() };
 var img = null,
     imgx, imgy, imgready = false;
 

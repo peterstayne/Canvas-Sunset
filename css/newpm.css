@@ -24,8 +24,8 @@ a, a:visited, a:hover {
         -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#000033', EndColorStr='#330099')"; 
 }
 #contentdiv {
-        width: 98%;
-        height: 98%;
+        width: 96%;
+        height: 96%;
         margin: 5px;
         padding: 5px;
         position:absolute;
@@ -39,9 +39,6 @@ a, a:visited, a:hover {
     overflow: hidden;
     position: absolute;
 }
-#mainpane {
-    height: 98%;
-    float: right;
-    width: 100%;
-    vertical-align: middle;
+#info {
+   display: none;
 }

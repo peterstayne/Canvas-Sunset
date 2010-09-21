@@ -1,4 +1,4 @@
-var canvas, ctx, width, height, bggradsky, bggradground, bggradmouse, horizon, aC = 0,
+var canvas, ctx, width, height, widthEvenOdd, bggradsky, bggradground, bggradmouse, horizon, aC = 0,
     scale, makewater, lRC, rRC, stopWatchTime, stopWatchFrames, sunRadius, testBallRadius;
 var fC, fS, fromDot, toDot, mouseX = 0,
     mouseY = 0, gradX, gradY;
@@ -23,7 +23,7 @@ $(document).ready(function () {
         mouseX = e.pageX;
         mouseY = e.pageY;
         if (canvas) {
-            gradX = (mouseX / scale) + (canvas.width >> 2);
+            gradX = (mouseX / scale) + (canvas.width / 6);
             gradY = mouseY / scale;
             testBallRadius = canvas.width >> 4;
             bggradmouse = ctx.createRadialGradient(gradX, gradY, 0, gradX, mouseY / scale, testBallRadius);
@@ -32,22 +32,23 @@ $(document).ready(function () {
             bggradmouse.addColorStop(1, "rgba(75,60,120,0)");
         }
     });
-    setInterval("draw()", 50);
+    setInterval("draw()", 10);
 });
 
 function init() {
     scale = 3;
     aC = 0;
     width = ~~(window.innerWidth / scale);
+    width = width + (width % 2);               // Make sure width is an even number so that later bit-shifts work correctly
     height = ~~(window.innerHeight / scale);
-    lRC = width >> 1;
+    lRC = width >> 2;
     rRC = lRC + width;
     horizon = (height * 0.67) >> 0;
-    canvas.setAttribute('width', width * 2);
+    canvas.setAttribute('width', width + (width >> 1));
     canvas.setAttribute('height', height);
     testBallRadius = canvas.width >> 5;
-    $("#bgcanvas").css("left", "-" + (window.innerWidth >> 1) + "px");
-    $("#bgcanvas").css("width", (window.innerWidth << 1) + "px");
+    $("#bgcanvas").css("left", "-" + (window.innerWidth >> 2) + "px");
+    $("#bgcanvas").css("width", (window.innerWidth + (window.innerWidth >> 1)) + "px");
     bggradsky = ctx.createLinearGradient((canvas.width / 2 >> 0) + 1, 0, (canvas.width / 2 >> 0) + 1, horizon);
     bggradsky.addColorStop(0, '#330044');
     bggradsky.addColorStop(0.75, '#66223a');
@@ -74,7 +75,7 @@ function draw() {
     var rCA, cosVal, sinVal, alti;
 
     horizon = (height * 0.67) >> 0;
-    canvas.setAttribute('width', width << 1);
+    canvas.setAttribute('width', width + (width >> 1));
     canvas.setAttribute('height', height);
 
     (aC < fakeLimit) ? aC++ : aC = 1; //sanity check
@@ -84,7 +85,7 @@ function draw() {
     ctx.fillRect(0, 0, canvas.width, horizon);
     ctx.fillStyle = bggradsun;
     ctx.beginPath();
-    ctx.arc(canvas.width * 0.4, height * 0.72, sunRadius, 0, Math.PI*2, true);
+    ctx.arc(canvas.width * 0.4, height * 0.72, sunRadius, 0, Pi2, true);
     ctx.closePath();
     ctx.fill();
     if(bggradmouse) {
@@ -126,7 +127,7 @@ function draw() {
 
         cC = gsW >> 1; // Stored alias for the middle of the image data.
 
-    toDot = lRC<<2;
+    toDot = (lRC<<2);
 
     for (var i = gsH; i > startRow; i--) {
 
@@ -155,7 +156,7 @@ function draw() {
             makewater.data[toDot++] = gsD[fromDot++]; // and here (blue)
             makewater.data[toDot++] = 255; // opacity is always opaque, so just use literal 255.
         }
-        toDot += width << 2;
+        toDot += (width << 1);
      }
     ctx.putImageData(makewater, 0, horizon, 0, 0, makewater.width, makewater.height); // put the final water where it needs to go
 }

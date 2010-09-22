@@ -1,0 +1,19 @@
+Canvas Sunset
+
+A simple experiment aimed at creating a sunset scene entirely in <canvas>
+
+Looking to speed up the wave reflection engine, and then will add clouds, birds, and landscape.
+
+Move your mouse around to fly my blue testing ball.
+
+By far the best browser to view this in is Opera 10.60+. Very fast FPS and the gradients are silky smooth.
+
+In order from fastest to slowest: Webkit Nightlies/Safari 5, Chromium/Chrome, Firefox.
+
+Haven't been able to test hardware acceleration or IE9 on my Mac yet. :(
+
+e-mail: pmilkman at gmail dot com
+
+http://www.twitter.com/pmilkman
+
+http://github.com/peterstayne/Canvas-Sunset

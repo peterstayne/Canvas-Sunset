@@ -101,7 +101,7 @@ function draw() {
     if(bggradmouse) {
        ctx.fillStyle = bggradmouse;
        ctx.beginPath();
-       ctx.arc(gradX, gradY, testBallRadius, 0, Math.PI*2, true);
+       ctx.arc(gradX, gradY, testBallRadius, 0, Pi2, true);
        ctx.closePath();
        ctx.fill();
     }
@@ -137,7 +137,7 @@ function draw() {
 
         cC = gsW >> 1; // Stored alias for the middle of the image data.
 
-    toDot = (lRC<<2);
+    toDot = lRC<<2;
 
     for (var i = gsH; i > startRow; i--) {
 
@@ -166,7 +166,7 @@ function draw() {
             makewater.data[toDot++] = gsD[fromDot++]; // and here (blue)
             makewater.data[toDot++] = 255; // opacity is always opaque, so just use literal 255.
         }
-        toDot += (width << 1);
+        toDot += width << 1;
      }
     ctx.putImageData(makewater, 0, horizon, 0, 0, makewater.width, makewater.height); // put the final water where it needs to go
 }

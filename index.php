@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <meta content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport" />
-<meta content = "width = 320,initial-scale = 2.3, user-scalable = no" name = "viewport" />
 <head>
  <link href="css/newpm.css" media="screen" rel="stylesheet" type="text/css" /> 
  <title>Canvas Sunset HTML5 Experiment</title>

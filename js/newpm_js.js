@@ -1,7 +1,7 @@
 var canvas, ctx, width, height, widthEvenOdd, bggradsky, bggradground, bggradmouse, horizon, aC = 0,
     scale, makewater, lRC, rRC, stopWatchTime, stopWatchFrames, sunRadius, testBallRadius, intval;
 var fC, fS, fromDot, toDot, mouseX = 0,
-    mouseY = 0, gradX, gradY;
+    mouseY = 0, gradX, gradY, postTimer = 0, frameCount = 0;
 var Pi2 = Math.PI * 2;
 var fakeLimit = Pi2 * 100 >> 0;
 
@@ -72,6 +72,9 @@ function init() {
     bggradsun.addColorStop(1, "rgba(255,100,10,0)");
     rCA = 0.0003 * (height / 3);
     makewater = ctx.getImageData(0, horizon, canvas.width, canvas.height - horizon);
+    $("#realtimeinfo").html("Window res: " + window.innerWidth + " x " + window.innerHeight + " scale: " + scale + " canvas res: " + width + " x " + height);
+    postTimer = new Date().getTime();
+    frameCount = 0;
 }
 $(window).resize(init);
 window.onorientationchange = function() { init() };
@@ -105,7 +108,7 @@ function draw() {
        ctx.closePath();
        ctx.fill();
     }
-    
+
     // would love to use createImageData instead of getImageData, but Opera won't let me.
     var getsky = ctx.getImageData(0, 0, canvas.width, horizon),
         gsD = getsky.data,
@@ -169,4 +172,10 @@ function draw() {
         toDot += width << 1;
      }
     ctx.putImageData(makewater, 0, horizon, 0, 0, makewater.width, makewater.height); // put the final water where it needs to go
+    frameCount++;
+    if(frameCount>200) {
+        $("#fps").text("FPS: " + ~~(frameCount / ((new Date().getTime() - postTimer)/1000)));
+        frameCount = 0;
+        postTimer = new Date().getTime();
+    }
 }

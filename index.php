@@ -14,6 +14,8 @@
 <h1>Canvas Sunset - an HTML5 Canvas Experiment</h1>
 <a href="javascript://" id="toggleInfo">Info</a> | <a href="javascript://" id="toggleInterval">Pause</a>
 <div id="info">
+<p id="realtimeinfo"></p>
+<p id="fps"></p>
 <p>Looking to speed up the wave reflection engine, and then will add clouds, birds, and landscape.</p>
 <p>Move your mouse around to fly my blue testing ball.</p>
 <p>By far the best browser to view this in is Opera 10.60+. Very fast FPS and the gradients are silky smooth.</p>

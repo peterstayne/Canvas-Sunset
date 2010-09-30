@@ -48,7 +48,7 @@
 			    bggradsun.addColorStop(1, "rgba(255,100,10,0)");
 			    rCA = 0.0003 * (height / 3);
 			    makewater = ctx.getImageData(0, horizon, canvas.width, canvas.height - horizon);
-			    $("#realtimeinfo").html("Window res: " + $this.width() + " x " + $this.height() + " scale: " + scale + " canvas res: " + width + " x " + height);
+			    $("#realtimeinfo").html("Actual resolution: " + $this.width() + "px x " + $this.height() + "px, scaled: " + scale + "x, &lt;canvas&gt; resolution: " + width + " x " + height);
 			    postTimer = new Date().getTime();
 			    frameCount = 0;
 			}

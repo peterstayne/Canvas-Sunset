@@ -174,9 +174,3 @@
 		});
 	}
 })(jQuery);
-
-
-
-$(document).ready(function(){ 
-	$(".sunset").pmSunset(); 
-});

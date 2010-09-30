@@ -1,9 +1,6 @@
 (function($){
 	$.fn.pmSunset = function(){
-		var canvas, ctx, width, height, widthEvenOdd, bggradsky, bggradground, bggradmouse, horizon, aC = 0,
-		    scale, makewater, lRC, rRC, stopWatchTime, stopWatchFrames, sunRadius, testBallRadius, intval;
-		var fC, fS, fromDot, toDot, mouseX = 0,
-		    mouseY = 0, gradX, gradY, postTimer = 0, frameCount = 0;
+		var fC, fS;
 		var Pi2 = Math.PI * 2;
 		var fakeLimit = Pi2 * 100 >> 0;
 		fS = [];
@@ -16,6 +13,10 @@
 		}
 
 		return this.each(function() {
+			var canvas, ctx, width, height, widthEvenOdd, bggradsky, bggradground, bggradmouse, horizon, aC = 0,
+			    scale, makewater, lRC, rRC, stopWatchTime, stopWatchFrames, sunRadius, testBallRadius, intval;
+			var fromDot, toDot, mouseX = 0,
+			    mouseY = 0, gradX, gradY, postTimer = 0, frameCount = 0;
 			function init() {
 			    scale = 2;
 			    aC = 0;
@@ -26,10 +27,10 @@
 				canvas.setAttribute('overflow','hidden');
 			    canvas.setAttribute('width', width + (width >> 1));
 		    	canvas.setAttribute('height', height);
-				$("#bgcanvas").css("position","relative");
-			    $("#bgcanvas").css("left", "-" + ($this.width() >> 2) + "px");
-			    $("#bgcanvas").css("width", ($this.width() + ($this.width() >> 1)) + "px");
-				$("#bgcanvas").css("height", $this.height());
+				$(canvas).css("position","relative");
+			    $(canvas).css("left", "-" + ($this.width() >> 2) + "px");
+			    $(canvas).css("width", ($this.width() + ($this.width() >> 1)) + "px");
+				$(canvas).css("height", $this.height());
 			    lRC = width >> 2;
 			    rRC = lRC + width;
 			    horizon = (height * 0.67) >> 0;
@@ -150,9 +151,9 @@
 			        postTimer = new Date().getTime();
 			    }
 			}			
-			$this = $(this);
-			$this.append("<canvas id='bgcanvas'></canvas>");
-			canvas = document.getElementById('bgcanvas');
+			var $this = $(this);
+			var newCanvas = document.createElement('canvas');
+			canvas = this.appendChild(newCanvas);
 			
 		    ctx = canvas.getContext('2d');
 		    $this.mousemove(function (e) {
@@ -177,5 +178,5 @@
 
 
 $(document).ready(function(){ 
-	$("#bgdiv").pmSunset(); 
+	$(".sunset").pmSunset(); 
 });

@@ -10,8 +10,6 @@
 <h1>Canvas Sunset - an HTML5 Canvas Experiment</h1>
 <div id="bgdiv" class="sunset">
 </div>
-<div id="bgdiv2" class="sunset">
-</div>
 <div id="contentdiv">
 <div id="info">
 <p id="fps">FPS: <i>calculating...</i></p>

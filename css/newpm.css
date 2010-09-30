@@ -1,44 +1,55 @@
 html, body, #bgdiv {
-    height: 100%;
     width: 100%;    
     margin: 0px;
     padding: 0px;
     font-family: arial, helvetica, verdana;
     font-size: 12px;
-    color: #fff;
+    color: #444;
+}
+body {
+	width:800px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
 }
 
 a, a:visited, a:hover {
-    color: #fff;
+    color: #990033;
     text-decoration: underline;
 }
 #bgdiv {
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: 20px;
+		width: 700px;
+		height: 400px;
         overflow: hidden;
-        position: absolute;
-        left: 0px;
-        top: 0px;
   background-color: #000033;
   background-image: -moz-linear-gradient(top, #000033, #330099); 
   background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #000033),color-stop(1, #330099)); 
             filter:  progid:DXImageTransform.Microsoft.gradient(startColorStr='#000033', EndColorStr='#330099'); 
         -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#000033', EndColorStr='#330099')"; 
+		     -moz-box-shadow: -8px 8px 3px #444; 
+		  -webkit-box-shadow: -8px 8px 3px #444; 
+		          box-shadow: -8px 8px 3px #444; 
 }
 #contentdiv {
-        width: 96%;
-        height: 96%;
-        margin: 5px;
-        padding: 5px;
-        position:absolute;
-        left: 0px;
-        top: 0px;
-}
-#bgcanvas {
-    margin: 0px;
-    padding: 0px;
-    height: 100%;
-    overflow: hidden;
-    position: absolute;
+	margin-left: auto;
+	margin-right: auto;
+    	width: 70%;
+   		text-align: left;
 }
 #info {
-   display: none;
+	margin-left: auto;
+	margin-right: auto;
+   		text-align: left;
+}
+h1 {
+	color: #990033;
+     text-shadow: 1px 1px 3px #888; 
+}
+#fps {
+	font-weight: bold;
+	font-size: 23px;
+	color: #990033;
 }

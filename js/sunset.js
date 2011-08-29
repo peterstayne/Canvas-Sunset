@@ -11,6 +11,8 @@
 		for (var i = -fakeLimit; i < fakeLimit; i++) {
 		    fC[i] = Math.cos(i * 0.01);
 		}
+			    var imageObj = new Image();
+			    imageObj.src = "images/duck_small.jpg";
 
 		return this.each(function() {
 			var canvas, ctx, width, height, widthEvenOdd, bggradsky, bggradground, bggradmouse, horizon, aC = 0,
@@ -35,8 +37,6 @@
 			    rRC = lRC + width;
 			    horizon = (height * 0.67) >> 0;
 			    testBallRadius = canvas.width >> 5;
-			    var imageObj = new Image();
-			    imageObj.src = "images/duck_small.jpg";
 			    bggradsky = ctx.createLinearGradient((canvas.width / 2 >> 0) + 1, 0, (canvas.width / 2 >> 0) + 1, horizon);
 			    bggradsky.addColorStop(0, '#330044');
 			    bggradsky.addColorStop(0.75, '#66223a');

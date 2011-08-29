@@ -170,7 +170,7 @@
 		        if (canvas) {
 		            gradX = (mouseX / scale) + (canvas.width / 6);
 		            gradY = mouseY / scale;
-			        imgX = -(gradX >> 2) + (gradx >> 3);
+			        imgX = -(gradX >> 2) + (gradX >> 3);
 		            bggradmouse = ctx.createRadialGradient(gradX, gradY, 0, gradX, mouseY / scale, testBallRadius);
 		            bggradmouse.addColorStop(0, "rgba(140,120,250,1)");
 		            bggradmouse.addColorStop(0.5, "rgba(75,60,120,1)");

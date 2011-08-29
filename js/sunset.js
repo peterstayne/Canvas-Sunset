@@ -104,7 +104,7 @@
 			        rCA = 60,
 			        // rCA is an accumulator that is used to have waves be closer together near the horizon
 
-			        rCAInc = 0.96,
+			        rCAInc = 0.97,
 			        // rCA is multiplied by this each row in the main loop
 
 			        aCDiv4H = aC << 3,

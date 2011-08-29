@@ -72,10 +72,10 @@
 //			    ctx.fillRect(0, 0, canvas.width, horizon);
 //			    ctx.fillStyle = bggradsun;
 				ctx.drawImage(imageObj,0,0);
-			    ctx.beginPath();
-			    ctx.arc(canvas.width * 0.4, height * 0.72, sunRadius, 0, Pi2, true);
-			    ctx.closePath();
-			    ctx.fill();
+//			    ctx.beginPath();
+//			    ctx.arc(canvas.width * 0.4, height * 0.72, sunRadius, 0, Pi2, true);
+//			    ctx.closePath();
+//			    ctx.fill();
 			    if(bggradmouse) {
 			       ctx.fillStyle = bggradmouse;
 			       ctx.beginPath();

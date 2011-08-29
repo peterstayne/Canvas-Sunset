@@ -1,5 +1,6 @@
 (function($){
 	$.fn.pmSunset = function(){
+		
 		var fC, fS;
 		var Pi2 = Math.PI * 2;
 		var fakeLimit = Pi2 * 100 >> 0;

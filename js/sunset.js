@@ -3,6 +3,7 @@
 		
 		var fC, fS;
 		var Pi2 = Math.PI * 2;
+		var testBallRadius;
 		var fakeLimit = Pi2 * 100 >> 0;
 		fS = [];
 		for (var i = -fakeLimit; i < fakeLimit; i++) {
@@ -12,8 +13,9 @@
 		for (var i = -fakeLimit; i < fakeLimit; i++) {
 		    fC[i] = Math.cos(i * 0.01);
 		}
-			    var imageObj = new Image();
-			    imageObj.src = "images/postrain_small.jpg";
+	    var imageObj = new Image();
+	    imageObj.src = "images/postrain_small.jpg";
+	    var imgX = 0, imgY = 0;
 
 		return this.each(function() {
 			var canvas, ctx, width, height, widthEvenOdd, bggradsky, bggradground, bggradmouse, horizon, aC = 0,
@@ -38,7 +40,7 @@
 			    rRC = lRC + width;
 			    horizon = (height * 0.67) >> 0;
 			    testBallRadius = canvas.width >> 5;
-			    bggradsky = ctx.createLinearGradient((canvas.width / 2 >> 0) + 1, 0, (canvas.width / 2 >> 0) + 1, horizon);
+/*			    bggradsky = ctx.createLinearGradient((canvas.width / 2 >> 0) + 1, 0, (canvas.width / 2 >> 0) + 1, horizon);
 			    bggradsky.addColorStop(0, '#330044');
 			    bggradsky.addColorStop(0.75, '#66223a');
 			    bggradsky.addColorStop(0.90, '#883333');
@@ -49,6 +51,7 @@
 			    bggradsun.addColorStop(0.12, "rgba(255,200,40,1)");
 			    bggradsun.addColorStop(0.3, "rgba(255,160,20,0.3)");
 			    bggradsun.addColorStop(1, "rgba(255,100,10,0)");
+*/
 			    rCA = 0.0003 * (height / 3);
 			    makewater = ctx.getImageData(0, horizon, canvas.width, canvas.height - horizon);
 			    $("#realtimeinfo").html("Actual resolution: " + $this.width() + "px x " + $this.height() + "px, scaled: " + scale + "x, &lt;canvas&gt; resolution: " + width + " x " + height);
@@ -72,7 +75,7 @@
 //			    ctx.fillStyle = bggradsky;
 //			    ctx.fillRect(0, 0, canvas.width, horizon);
 //			    ctx.fillStyle = bggradsun;
-				ctx.drawImage(imageObj,0,0);
+				ctx.drawImage(imageObj,imgX,imgY);
 //			    ctx.beginPath();
 //			    ctx.arc(canvas.width * 0.4, height * 0.72, sunRadius, 0, Pi2, true);
 //			    ctx.closePath();
@@ -160,13 +163,14 @@
 			canvas = this.appendChild(newCanvas);
 			
 		    ctx = canvas.getContext('2d');
+		    testBallRadius = canvas.width >> 4;
 		    $this.mousemove(function (e) {
 		        mouseX = e.clientX - $this.offset().left;
 		        mouseY = e.clientY - $this.offset().top;
 		        if (canvas) {
 		            gradX = (mouseX / scale) + (canvas.width / 6);
 		            gradY = mouseY / scale;
-		            testBallRadius = canvas.width >> 4;
+			        imgX = ~~(gradX / 6);
 		            bggradmouse = ctx.createRadialGradient(gradX, gradY, 0, gradX, mouseY / scale, testBallRadius);
 		            bggradmouse.addColorStop(0, "rgba(140,120,250,1)");
 		            bggradmouse.addColorStop(0.5, "rgba(75,60,120,1)");

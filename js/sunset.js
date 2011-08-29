@@ -23,7 +23,7 @@
 			var fromDot, toDot, mouseX = 0,
 			    mouseY = 0, gradX, gradY, postTimer = 0, frameCount = 0;
 			function init() {
-			    scale = 2;
+			    scale = 1;
 			    aC = 0;
 			    width = ~~($this.width() / scale);
 			    width = width + (width % 2) + 2;               // Make sure width is an even number so that later bit-shifts work correctly

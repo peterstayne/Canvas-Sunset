@@ -13,7 +13,7 @@
 		    fC[i] = Math.cos(i * 0.01);
 		}
 			    var imageObj = new Image();
-			    imageObj.src = "images/duck_small.jpg";
+			    imageObj.src = "images/postrain_small.jpg";
 
 		return this.each(function() {
 			var canvas, ctx, width, height, widthEvenOdd, bggradsky, bggradground, bggradmouse, horizon, aC = 0,

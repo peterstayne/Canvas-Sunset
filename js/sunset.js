@@ -35,6 +35,8 @@
 			    rRC = lRC + width;
 			    horizon = (height * 0.67) >> 0;
 			    testBallRadius = canvas.width >> 5;
+			    var imageObj = new Image();
+			    imageObj.src = "images/duck_small.jpg";
 			    bggradsky = ctx.createLinearGradient((canvas.width / 2 >> 0) + 1, 0, (canvas.width / 2 >> 0) + 1, horizon);
 			    bggradsky.addColorStop(0, '#330044');
 			    bggradsky.addColorStop(0.75, '#66223a');
@@ -66,9 +68,10 @@
 			    (aC < fakeLimit) ? aC++ : aC = 1; //sanity check
 
 			    // draw sky
-			    ctx.fillStyle = bggradsky;
-			    ctx.fillRect(0, 0, canvas.width, horizon);
-			    ctx.fillStyle = bggradsun;
+//			    ctx.fillStyle = bggradsky;
+//			    ctx.fillRect(0, 0, canvas.width, horizon);
+//			    ctx.fillStyle = bggradsun;
+				ctx.drawImage(imageObj,0,0);
 			    ctx.beginPath();
 			    ctx.arc(canvas.width * 0.4, height * 0.72, sunRadius, 0, Pi2, true);
 			    ctx.closePath();

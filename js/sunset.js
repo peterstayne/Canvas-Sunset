@@ -101,10 +101,10 @@
 			        startRow = gsH >> 1,
 			        // since the water portion is half the height of the sky, we can start half through getsky. >>1 = faster /2
 
-			        rCA = 50,
+			        rCA = 40,
 			        // rCA is an accumulator that is used to have waves be closer together near the horizon
 
-			        rCAInc = 0.95,
+			        rCAInc = 0.91,
 			        // rCA is multiplied by this each row in the main loop
 
 			        aCDiv4H = aC << 3,

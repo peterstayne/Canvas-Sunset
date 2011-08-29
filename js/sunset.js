@@ -39,7 +39,7 @@
 			    lRC = width >> 2;
 			    rRC = lRC + width;
 			    horizon = (height * 0.67) >> 0;
-			    testBallRadius = canvas.width >> 5;
+			    testBallRadius = canvas.width >> 4;
 /*			    bggradsky = ctx.createLinearGradient((canvas.width / 2 >> 0) + 1, 0, (canvas.width / 2 >> 0) + 1, horizon);
 			    bggradsky.addColorStop(0, '#330044');
 			    bggradsky.addColorStop(0.75, '#66223a');

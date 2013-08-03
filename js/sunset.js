@@ -153,7 +153,7 @@
 			    ctx.putImageData(makewater, 0, horizon, 0, 0, makewater.width, makewater.height); // put the final water where it needs to go
 			    frameCount++;
 			    if(frameCount>200) {
-			        $("#fps").text("FPS: " + ~~(frameCount / ((new Date().getTime() - postTimer)/1000)));
+			        document.getElementById('fps').innerHTML = "FPS: " + ~~(frameCount / ((new Date().getTime() - postTimer)/1000));
 			        frameCount = 0;
 			        postTimer = new Date().getTime();
 			    }

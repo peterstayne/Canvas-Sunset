@@ -80,13 +80,6 @@
 //			    ctx.arc(canvas.width * 0.4, height * 0.72, sunRadius, 0, Pi2, true);
 //			    ctx.closePath();
 //			    ctx.fill();
-			    if(bggradmouse) {
-			       ctx.fillStyle = bggradmouse;
-			       ctx.beginPath();
-			       ctx.arc(gradX, gradY, testBallRadius, 0, Pi2, true);
-			       ctx.closePath();
-			       ctx.fill();
-			    }
 
 			    // would love to use createImageData instead of getImageData, but Opera won't let me.
 			    var getsky = ctx.getImageData(0, 0, canvas.width, horizon),
@@ -150,6 +143,13 @@
 			        }
 			        toDot += width << 1;
 			     }
+			    if(bggradmouse) {
+			       ctx.fillStyle = bggradmouse;
+			       ctx.beginPath();
+			       ctx.arc(gradX, gradY, testBallRadius, 0, Pi2, true);
+			       ctx.closePath();
+			       ctx.fill();
+			    }
 			    ctx.putImageData(makewater, 0, horizon, 0, 0, makewater.width, makewater.height); // put the final water where it needs to go
 			    frameCount++;
 			    if(frameCount>200) {

@@ -49,7 +49,7 @@
                 testBallRadius = canvas.width >> 4;
                 rCA = 0.0003 * (height / 3);
                 makewater = ctx.getImageData(0, horizon, canvas.width, canvas.height - horizon);
-                $("#realtimeinfo").html("Actual resolution: " + $this.width() + "px x " + $this.height() + "px, scaled: " + scale + "x, &lt;canvas&gt; resolution: " + width + " x " + height);
+                $("#realtimeinfo").html("Actual resolution: " + thisWidth + "px x " + thisHeight + "px, scaled: " + scale + "x, &lt;canvas&gt; resolution: " + width + " x " + height);
                 postTimer = new Date().getTime();
                 frameCount = 0;
             }

@@ -29,33 +29,24 @@
             function init() {
                 scale = 1;
                 aC = 0;
-                width = ~~($this.width() / scale);
+                var thisWidth = $this.width(), thisHeight = $this.height();
+                width = ~~(thisWidth / scale);
                 width = width + (width % 2) + 2; // Make sure width is an even number so that later bit-shifts work correctly
-                height = ~~($this.height() / scale) + 2;
+                height = ~~(thisHeight / scale) + 2;
                 $this.css("overflow", "hidden");
                 canvas.setAttribute('overflow', 'hidden');
                 canvas.setAttribute('width', width + (width >> 1));
                 canvas.setAttribute('height', height);
-                $(canvas).css("position", "relative");
-                $(canvas).css("left", "-" + ($this.width() >> 2) + "px");
-                $(canvas).css("width", ($this.width() + ($this.width() >> 1)) + "px");
-                $(canvas).css("height", $this.height());
+                $(canvas).css({
+                    position: "relative",
+                    left: -(thisWidth >> 2),
+                    width: thisWidth + (thisWidth >> 1),
+                    height: thisHeight
+                });
                 lRC = width >> 2;
                 rRC = lRC + width;
                 horizon = (height * 0.67) >> 0;
                 testBallRadius = canvas.width >> 4;
-                /*			    bggradsky = ctx.createLinearGradient((canvas.width / 2 >> 0) + 1, 0, (canvas.width / 2 >> 0) + 1, horizon);
-                			    bggradsky.addColorStop(0, '#330044');
-                			    bggradsky.addColorStop(0.75, '#66223a');
-                			    bggradsky.addColorStop(0.90, '#883333');
-                			    bggradsky.addColorStop(1, '#ee4422');
-                			    sunRadius = canvas.width / 4;
-                			    bggradsun = ctx.createRadialGradient(canvas.width * 0.4, height * 0.72, 0, canvas.width * 0.4, height * 0.72, sunRadius);
-                			    bggradsun.addColorStop(0, "rgba(255,230,40,1)");
-                			    bggradsun.addColorStop(0.12, "rgba(255,200,40,1)");
-                			    bggradsun.addColorStop(0.3, "rgba(255,160,20,0.3)");
-                			    bggradsun.addColorStop(1, "rgba(255,100,10,0)");
-                */
                 rCA = 0.0003 * (height / 3);
                 makewater = ctx.getImageData(0, horizon, canvas.width, canvas.height - horizon);
                 $("#realtimeinfo").html("Actual resolution: " + $this.width() + "px x " + $this.height() + "px, scaled: " + scale + "x, &lt;canvas&gt; resolution: " + width + " x " + height);
